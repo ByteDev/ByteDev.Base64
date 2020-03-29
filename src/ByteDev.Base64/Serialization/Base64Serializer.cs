@@ -11,10 +11,10 @@ namespace ByteDev.Base64.Serialization
     public class Base64Serializer : IBase64Serializer
     {
         /// <summary>
-        /// Serializes a object to a compressed base64 string.
+        /// Serializes an object to a base64 string.
         /// </summary>
-        /// <param name="obj">The object to serialize to base64.</param>
-        /// <returns><paramref name="obj" /> serialized to base64 compressed string.</returns>
+        /// <param name="obj">Object to serialize to base64.</param>
+        /// <returns>Serialized representation of <paramref name="obj" />.</returns>
         public string Serialize(object obj)
         {
             using (var stream = new MemoryStream())
@@ -30,14 +30,14 @@ namespace ByteDev.Base64.Serialization
         }
 
         /// <summary>
-        /// Deserializes a compressed base64 string to object of the given type.
+        /// Deserialize a base64 serialized representation to type <typeparamref name="T" />.
         /// </summary>
-        /// <typeparam name="T">The type to deserialize to.</typeparam>
-        /// <param name="input">The compressed base64 string to deserialize.</param>
-        /// <returns><paramref name="input" /> deserialized to object of type <typeparamref name="T" />.</returns>
-        public T Deserialize<T>(string input)
+        /// <typeparam name="T">Type to deserialize to.</typeparam>
+        /// <param name="base64">Serialized base64 string representation.</param>
+        /// <returns>Deserialized type.</returns>
+        public T Deserialize<T>(string base64)
         {
-            var compressedBytes = Convert.FromBase64String(input);
+            var compressedBytes = Convert.FromBase64String(base64);
 
             using (var stream = new MemoryStream())
             {
@@ -48,7 +48,7 @@ namespace ByteDev.Base64.Serialization
                 return (T)formatter.Deserialize(stream);
             }
         }
-
+        
         private static byte[] Compress(Stream stream)
         {
             using (var resultStream = new MemoryStream())

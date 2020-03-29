@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>ByteDev.Base64</id>
+    <version>0.0.1</version>
+    <title>ByteDev.Base64</title>
+    <authors>Paul Stanley</authors>
+    <owners>Paul Stanley</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET Standard library for handling base64 strings.</description>
+    <copyright>Copyright 2020</copyright>
+    <tags>base64 encoder decoder encoding serializer serialization</tags>
+    <iconUrl>https://raw.githubusercontent.com/bytedev/ByteDev.Base64/master/images/icon.png</iconUrl>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\src\ByteDev.Base64\bin\Release\netstandard2.0\ByteDev.Base64.dll" target="lib\netstandard2.0" />
+    <file src="..\src\ByteDev.Base64\bin\Release\netstandard2.0\ByteDev.Base64.xml" target="lib\netstandard2.0" />
+  </files>
+</package>

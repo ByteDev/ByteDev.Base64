@@ -6,18 +6,18 @@ namespace ByteDev.Base64.Serialization
     public interface IBase64Serializer
     {
         /// <summary>
-        /// Serializes a object to a string.
+        /// Serializes an object to a base64 string.
         /// </summary>
-        /// <param name="obj">Object to serialize.</param>
+        /// <param name="obj">Object to serialize to base64.</param>
         /// <returns>Serialized representation of <paramref name="obj" />.</returns>
         string Serialize(object obj);
 
         /// <summary>
-        /// Deserialize a serialized representation to type <typeparamref name="T" />.
+        /// Deserialize a base64 serialized representation to type <typeparamref name="T" />.
         /// </summary>
         /// <typeparam name="T">Type to deserialize to.</typeparam>
-        /// <param name="input">Serialized string representation.</param>
+        /// <param name="base64">Serialized base64 string representation.</param>
         /// <returns>Deserialized type.</returns>
-        T Deserialize<T>(string input);
+        T Deserialize<T>(string base64);
     }
 }

@@ -4,13 +4,13 @@ using NUnit.Framework;
 namespace ByteDev.Base64.UnitTests
 {
     [TestFixture]
-    public class Base64Test
+    public class Base64EncoderTest
     {
         [TestFixture]
         public class IsBase64Encoded
         {
             [Test]
-            public void WhenArgIsNull_ThenReturnFalse()
+            public void WhenIsNull_ThenReturnFalse()
             {
                 var result = Act(null);
 
@@ -18,35 +18,46 @@ namespace ByteDev.Base64.UnitTests
             }
 
             [Test]
-            public void WhenArgIsEmpty_ThenReturnFalse()
+            public void WhenIsEmpty_ThenReturnFalse()
             {
                 var result = Act(string.Empty);
 
                 Assert.IsFalse(result);
             }
 
-            [Test]
-            public void WhenArgContainsNonBase64Char_ThenReturnFalse()
+            [TestCase("Sm9obiBTbWl0aA-=")]
+            [TestCase("Sm9obiBTbWl0aA$=")]
+            public void WhenContainsNonBase64Char_ThenReturnFalse(string notBase64)
             {
-                const string notBase64 = "£Sm9obiBTbWl0aA==";
+                var result = Act(notBase64);
+
+                Assert.IsFalse(result);
+            }
+
+            [TestCase("Sm9obiBTbWl0aA")]
+            [TestCase("Sm9obiBTbWl0aA=")]
+            public void WhenLengthIsNotMultipleOfFour_ThenReturnFalse(string notBase64)
+            {
                 var result = Act(notBase64);
 
                 Assert.IsFalse(result);
             }
 
             [Test]
-            public void WhenArgLengthIsMultipleOfFour_ThenReturnFalse()
+            public void WhenContainsMoreThanTwoEquals_ThenReturnFalse()
             {
-                const string notBase64 = "Sm9obiBTbWl0==";
+                const string notBase64 = "Sm9obiBTbWl0a===";
+
                 var result = Act(notBase64);
 
                 Assert.IsFalse(result);
             }
 
-            [Test]
-            public void WhenArgIsBase64Encoded_ThenReturnTrue()
+            [TestCase("Sm9obiBTbWl0aA==")]              // "John Smith"
+            [TestCase("Sm9obiBTbWl0aAA=")]
+            [TestCase("Sm9obiBTbWl0aAAA")]
+            public void WhenIsBase64Encoded_ThenReturnTrue(string base64)
             {
-                const string base64 = "Sm9obiBTbWl0aA==";           // "John Smith"
                 var result = Act(base64);
                 
                 Assert.IsTrue(result);

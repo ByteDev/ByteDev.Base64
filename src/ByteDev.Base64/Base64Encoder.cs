@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ByteDev.Base64
 {
     /// <summary>
-    /// Represents a set of base64 related operations.
+    /// Represents a set of base64 related encoding and decoding operations.
     /// </summary>
     public static class Base64Encoder
     {
         /// <summary>
-        /// The possible valid chars in a base64 encoded string.
+        /// The possible valid characters in a base64 encoded string.
         /// </summary>
         public static readonly HashSet<char> ValidChars = new HashSet<char>
         {
@@ -23,7 +23,7 @@ namespace ByteDev.Base64
         };
 
         /// <summary>
-        /// Checks if <paramref name="value" /> is base64 encoded.
+        /// Checks if <paramref name="value" /> is potentially base64 encoded.
         /// </summary>
         /// <param name="value">The string value to check.</param>
         /// <returns>True if <paramref name="value" /> is base64 encoded; otherwise returns false.</returns>
@@ -32,18 +32,12 @@ namespace ByteDev.Base64
             if (string.IsNullOrEmpty(value))
                 return false;
 
-            if (value.Any(c => !ValidChars.Contains(c)))
+            // Check length is multiple of 4
+            if (value.Length % 4 != 0)
                 return false;
 
-            try
-            {
-                Convert.FromBase64String(value);
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
+            // Check every char is [A-Za-z0-9+/] except for end padding which can be 0-2 '=' characters
+            return Regex.IsMatch(value, "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$");
         }
 
         /// <summary>
@@ -75,23 +69,30 @@ namespace ByteDev.Base64
         public static string ConvertToBase64(string text, Encoding encoding)
         {
             byte[] buffer = encoding.GetBytes(text);
+
             return Convert.ToBase64String(buffer);
         }
 
         /// <summary>
-        /// Converts a base64 encoded string to UTF8.
+        /// Converts a string from base64 encoded to UTF8.
         /// </summary>
         /// <param name="base64EncodedText">The base64 string to convert.</param>
         /// <returns>The converted UTF8 string.</returns>
         public static string ConvertFromBase64(string base64EncodedText)
         {
-            var encoding = new UTF8Encoding();
-            return ConvertFromBase64(base64EncodedText, encoding);
+            return ConvertFromBase64(base64EncodedText, new UTF8Encoding());
         }
 
+        /// <summary>
+        /// Converts a string from base64 encoded to <paramref name="encoding" />.
+        /// </summary>
+        /// <param name="base64EncodedText">The base64 string to convert.</param>
+        /// <param name="encoding">The target encoding.</param>
+        /// <returns>The converted string.</returns>
         public static string ConvertFromBase64(string base64EncodedText, Encoding encoding)
         {
             byte[] buffer = Convert.FromBase64String(base64EncodedText);
+
             return encoding.GetString(buffer);
         }
     }
