@@ -10,7 +10,7 @@
     <description>.NET Standard library for handling base64 strings.</description>
     <copyright>Copyright 2020</copyright>
     <tags>base64 encoder decoder encoding serializer serialization</tags>
-    <iconUrl>https://raw.githubusercontent.com/bytedev/ByteDev.Base64/master/images/icon.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/ByteDev/ByteDev.Base64/master/images/icon.png</iconUrl>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />
     </dependencies>
