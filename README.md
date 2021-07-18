@@ -5,6 +5,8 @@
 
 .NET Standard library for handling base64 strings.
 
+**IMPORTANT:** This library should be considered depreciated as it has been superseded by project [ByteDev.Encoding](https://github.com/ByteDev/ByteDev.Encoding). Functionality from this library has been absorbed into that library.
+
 ## Installation
 
 ByteDev.Base64 has been written as a .NET Standard 2.0 library, so you can consume it from a .NET Core or .NET Framework 4.6.1 (or greater) application.
@@ -20,12 +22,6 @@ Further details can be found on the [nuget page](https://www.nuget.org/packages/
 Releases follow semantic versioning.
 
 Full details of the release notes can be viewed on [GitHub](https://github.com/ByteDev/ByteDev.Base64/blob/master/docs/RELEASE-NOTES.md).
-
-## Code
-
-The repo can be cloned from git bash:
-
-`git clone https://github.com/ByteDev/ByteDev.Base64`
 
 ## Usage
 
